@@ -3,130 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Habi | My Portfolio</title>
+    <title>Habi | Portfolio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
 
-<header>
-    <a href="#home" class="logo">Habi<span>.</span></a>
+    <header class="header">
+        <a href="#home" class="logo">Habi<span>.</span></a>
 
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-    </nav>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
 
-    <button id="themeBtn" aria-label="Change colour theme">☀️</button>
-</header>
+        <button id="themeToggle" class="theme-toggle"
+                type="button" aria-label="Switch to dark theme">
+            🌙
+        </button>
+    </header>
 
-<section id="home" class="hero">
-    <div class="hero-text">
-        <p class="tag">WELCOME TO MY PORTFOLIO</p>
-        <h1>Hi, I'm <span>Habi</span></h1>
-        <h2>B.Sc Computer Science Student</h2>
-        <p>
-            I'm learning programming and web development.
-            I enjoy creating simple and useful projects using technology.
-        </p>
-        <a href="#projects" class="btn">Explore My Projects ↗</a>
-    </div>
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <p class="eyebrow">WELCOME TO MY PORTFOLIO</p>
+                <h1>Hi, I'm <span>Habi</span></h1>
+                <h2>Student & Aspiring Developer</h2>
+                <p>
+                    I enjoy learning programming and building simple,
+                    creative and useful web projects.
+                </p>
 
-    <div class="photo-box">
-        <img src="./habi.jpg" alt="Habi's profile photo">
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
-        <div class="photo-placeholder">H</div>
-    </div>
-</section>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn">Explore Projects</a>
+                    <a href="#contact" class="btn btn-outline">Contact Me</a>
+                </div>
+            </div>
 
-<section id="about" class="section">
-    <p class="tag">GET TO KNOW ME</p>
-    <h2>About <span>Me</span></h2>
-    <p class="about-text">
-        I'm Habi, a B.Sc Computer Science student interested in
-        programming and web development. I have created projects
-        such as a Personal Expense Tracker, an Interactive Timeline
-        of History, and a Student Task Planner. I enjoy learning
-        new skills and improving my projects step by step.
-    </p>
-</section>
+            <div class="hero-image">
+                <div class="image-ring">
+                    <img src="./habi.jpg" alt="Habi's profile photo">
+                </div>
+            </div>
 
-<section id="skills" class="section">
-    <p class="tag">WHAT I'M LEARNING</p>
-    <h2>My <span>Skills</span></h2>
+            <div class="sphere sphere-one"></div>
+            <div class="sphere sphere-two"></div>
+            <div class="sphere sphere-three"></div>
+        </section>
 
-    <div class="skills-container">
-        <div class="skill-card">Python</div>
-        <div class="skill-card">Java</div>
-        <div class="skill-card">JavaScript</div>
-        <div class="skill-card">HTML</div>
-        <div class="skill-card">CSS</div>
-        <div class="skill-card">C</div>
-        <div class="skill-card">C++</div>
-    </div>
-</section>
+        <section id="about" class="section">
+            <p class="eyebrow">GET TO KNOW ME</p>
+            <h2 class="section-title">About <span>Me</span></h2>
 
-<section id="projects" class="section">
-    <p class="tag">MY WORK</p>
-    <h2>Featured <span>Projects</span></h2>
-    <p class="section-intro">Some projects I've built and published online.</p>
+            <div class="about-card">
+                <p>
+                    Hello! I'm Habi, a student interested in computer science
+                    and web development. I'm learning programming languages
+                    and improving my skills by creating projects.
+                </p>
+                <p>
+                    My goal is to keep learning, solve problems and build
+                    better projects step by step.
+                </p>
+            </div>
+        </section>
 
-    <div class="filter-buttons">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="web">Web Projects</button>
-    </div>
+        <section id="skills" class="section">
+            <p class="eyebrow">WHAT I LEARN</p>
+            <h2 class="section-title">My <span>Skills</span></h2>
 
-    <div class="projects-container">
-        <article class="project-card" data-category="web">
-            <p class="project-number">PROJECT 01</p>
-            <h3>Personal Expense Tracker</h3>
-            <p>A simple project for tracking personal expenses.</p>
-            <p class="tech">HTML · CSS · JavaScript</p>
-            <a href="https://monumental-caramel-685703.netlify.app"
-               target="_blank" rel="noopener noreferrer" class="project-btn">
-               Live Demo ↗
-            </a>
-        </article>
+            <div class="skills-grid">
+                <div class="skill-card">Python</div>
+                <div class="skill-card">Java</div>
+                <div class="skill-card">JavaScript</div>
+                <div class="skill-card">HTML</div>
+                <div class="skill-card">CSS</div>
+                <div class="skill-card">C</div>
+                <div class="skill-card">C++</div>
+            </div>
+        </section>
 
-        <article class="project-card" data-category="web">
-            <p class="project-number">PROJECT 02</p>
-            <h3>Interactive Timeline of History</h3>
-            <p>Explore historical events through an interactive timeline.</p>
-            <p class="tech">HTML · CSS · JavaScript</p>
-            <a href="https://interactive-timeline-history.netlify.app"
-               target="_blank" rel="noopener noreferrer" class="project-btn">
-               Live Demo ↗
-            </a>
-        </article>
+        <section id="projects" class="section">
+            <p class="eyebrow">WHAT I'VE BUILT</p>
+            <h2 class="section-title">My <span>Projects</span></h2>
 
-        <article class="project-card" data-category="web">
-            <p class="project-number">PROJECT 03</p>
-            <h3>Student Task Planner</h3>
-            <p>Add tasks, mark them complete, filter tasks and delete them.</p>
-            <p class="tech">HTML · CSS · JavaScript</p>
-            <a href="https://student-task-planne.netlify.app"
-               target="_blank" rel="noopener noreferrer" class="project-btn">
-               Live Demo ↗
-            </a>
-        </article>
-    </div>
-</section>
+            <div class="projects-grid">
+                <article class="project-card">
+                    <div class="project-number">01</div>
+                    <h3>Personal Expense Tracker</h3>
+                    <p>
+                        A simple project to explore tracking and organising
+                        personal expenses.
+                    </p>
+                    <a href="https://monumental-caramel-685703.netlify.app"
+                       target="_blank" rel="noopener noreferrer">
+                        View Project ↗
+                    </a>
+                </article>
 
-<section id="contact" class="section contact">
-    <p class="tag">LET'S CONNECT</p>
-    <h2>Contact <span>Me</span></h2>
-    <p>Want to connect or talk about my projects? Send me an email.</p>
-    <a href="mailto:your-email@example.com" class="btn">Email Me ↗</a>
-    <p class="email-note">Replace the sample email with your own email address.</p>
-</section>
+                <article class="project-card">
+                    <div class="project-number">02</div>
+                    <h3>Interactive Timeline of History</h3>
+                    <p>
+                        An interactive timeline that presents important
+                        historical events in order.
+                    </p>
+                    <a href="https://interactive-timeline-history.netlify.app"
+                       target="_blank" rel="noopener noreferrer">
+                        View Project ↗
+                    </a>
+                </article>
 
-<footer>
-    <p>© <span id="year"></span> Habi | Made with HTML, CSS & JavaScript</p>
-    <a href="#home">Back to top ↑</a>
-</footer>
+                <article class="project-card">
+                    <div class="project-number">03</div>
+                    <h3>Student Task Planner</h3>
+                    <p>
+                        A student-focused project for organising tasks
+                        and managing study activities.
+                    </p>
+                    <a href="https://student-task-planne.netlify.app"
+                       target="_blank" rel="noopener noreferrer">
+                        View Project ↗
+                    </a>
+                </article>
+            </div>
+        </section>
 
-<script src="script.js"></script>
+        <section id="contact" class="section">
+            <p class="eyebrow">LET'S CONNECT</p>
+            <h2 class="section-title">Contact <span>Me</span></h2>
+
+            <div class="contact-card">
+                <p>Thank you for visiting my portfolio!</p>
+
+                <a href="mailto:habihabi.e866@gmail.com" class="contact-link">
+                    ✉ habihabi.e866@gmail.com
+                </a>
+
+                <a href="https://github.com/habi0086"
+                   target="_blank" rel="noopener noreferrer"
+                   class="contact-link">
+                    GitHub ↗
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© <span id="year"></span> Habi. Made with care.</p>
+    </footer>
+
 </body>
 </html>
