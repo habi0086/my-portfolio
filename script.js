@@ -1,57 +1,109 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const themeToggle = document.getElementById("themeToggle");
-    const yearElement = document.getElementById("year");
+const themeSelect = document.getElementById("themeSelect");
+const typingText = document.getElementById("typingText");
+const skillCards = document.querySelectorAll(".skill-card");
+const skillDetail = document.getElementById("skillDetail");
+const detailTitle = document.getElementById("detailTitle");
+const detailDescription = document.getElementById("detailDescription");
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
 
-    // Footer year
-    if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
+// Theme selector
+const validThemes = ["gold", "blue", "purple", "green", "dark"];
+
+function applyTheme(theme) {
+  if (!validThemes.includes(theme)) {
+    theme = "gold";
+  }
+
+  document.body.dataset.theme = theme;
+
+  if (themeSelect) {
+    themeSelect.value = theme;
+  }
+
+  try {
+    localStorage.setItem("habiPortfolioTheme", theme);
+  } catch (error) {
+    // Theme still works if browser storage is unavailable.
+  }
+}
+
+let savedTheme = "gold";
+
+try {
+  const storedTheme = localStorage.getItem("habiPortfolioTheme");
+
+  if (validThemes.includes(storedTheme)) {
+    savedTheme = storedTheme;
+  }
+} catch (error) {
+  // Use the default theme.
+}
+
+applyTheme(savedTheme);
+
+if (themeSelect) {
+  themeSelect.addEventListener("change", () => {
+    applyTheme(themeSelect.value);
+  });
+}
+
+// Keep "Aspiring Web Developer" unchanged
+if (typingText) {
+  typingText.textContent = "Aspiring Web Developer";
+}
+
+// Interactive skills
+skillCards.forEach((card) => {
+  card.setAttribute("aria-pressed", "false");
+
+  card.addEventListener("click", () => {
+    const wasSelected = card.classList.contains("selected");
+
+    skillCards.forEach((item) => {
+      item.classList.remove("selected");
+      item.setAttribute("aria-pressed", "false");
+    });
+
+    if (wasSelected) {
+      skillDetail.classList.remove("active");
+      detailTitle.textContent = "Choose a skill";
+      detailDescription.textContent =
+        "Select a card to see what the skill is used for.";
+      return;
     }
 
-    // Default: follow the device theme (dark / light)
-    let savedTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
+    card.classList.add("selected");
+    card.setAttribute("aria-pressed", "true");
 
-    // If the user already chose a theme with the button, use that
-    try {
-        savedTheme = localStorage.getItem("portfolio-theme") || savedTheme;
-    } catch (error) {
-        // keep device theme
-    }
-
-    function applyTheme(theme) {
-        const isDark = theme === "dark";
-
-        document.body.classList.toggle("dark-theme", isDark);
-
-        if (themeToggle) {
-            themeToggle.textContent = isDark ? "☀️" : "🌙";
-
-            themeToggle.setAttribute(
-                "aria-label",
-                isDark ? "Switch to light theme" : "Switch to dark theme"
-            );
-
-            themeToggle.setAttribute("aria-pressed", String(isDark));
-        }
-    }
-
-    // Apply theme when page opens
-    applyTheme(savedTheme);
-
-    // Theme button: exactly one click listener
-    if (themeToggle) {
-        themeToggle.addEventListener("click", function () {
-            const isDark = document.body.classList.contains("dark-theme");
-            const nextTheme = isDark ? "light" : "dark";
-
-            applyTheme(nextTheme);
-
-            try {
-                localStorage.setItem("portfolio-theme", nextTheme);
-            } catch (error) {
-                // Theme still works if storage is unavailable
-            }
-        });
-    }
+    detailTitle.textContent = card.dataset.skill;
+    detailDescription.textContent = card.dataset.description;
+    skillDetail.classList.add("active");
+  });
 });
+
+// Mobile navigation
+if (menuToggle && navLinks) {
+  menuToggle.addEventListener("click", () => {
+    const isOpen = navLinks.classList.toggle("open");
+
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+    menuToggle.textContent = isOpen ? "✕" : "☰";
+  });
+
+  navLinks.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.textContent = "☰";
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      navLinks.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.textContent = "☰";
+    }
+  });
+}
