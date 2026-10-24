@@ -7,6 +7,9 @@ const detailDescription = document.getElementById("detailDescription");
 const menuToggle = document.getElementById("menuToggle");
 const navLinks = document.getElementById("navLinks");
 
+const sections = Array.from(document.querySelectorAll("main .section"));
+let currentSection = document.querySelector(".active-section") || sections[0];
+
 // Theme selector
 const validThemes = ["gold", "blue", "purple", "green", "dark"];
 
@@ -24,7 +27,7 @@ function applyTheme(theme) {
   try {
     localStorage.setItem("habiPortfolioTheme", theme);
   } catch (error) {
-    // Theme still works if browser storage is unavailable.
+    // The theme still works if storage is unavailable.
   }
 }
 
@@ -48,10 +51,57 @@ if (themeSelect) {
   });
 }
 
-// Keep "Aspiring Web Developer" unchanged
+// Keep the title unchanged.
 if (typingText) {
   typingText.textContent = "Aspiring Web Developer";
 }
+
+// Switch sections without scrolling the page.
+function showSection(sectionId) {
+  const targetSection = document.getElementById(sectionId);
+
+  if (!targetSection || !targetSection.classList.contains("section")) {
+    return;
+  }
+
+  sections.forEach((section) => {
+    section.classList.remove("active-section", "section-slide-in");
+  });
+
+  targetSection.classList.add("active-section");
+  void targetSection.offsetWidth;
+  targetSection.classList.add("section-slide-in");
+
+  currentSection = targetSection;
+
+  // Close the mobile menu after navigation.
+  if (navLinks && menuToggle) {
+    navLinks.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.textContent = "☰";
+  }
+}
+
+// Next buttons switch the visible section; no scrollIntoView().
+document.querySelectorAll(".section-next-btn[data-next]").forEach((button) => {
+  button.addEventListener("click", () => {
+    showSection(button.dataset.next);
+  });
+});
+
+// Navbar, logo, hero buttons and footer links also switch sections
+// without scrolling the page.
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const sectionId = link.getAttribute("href").slice(1);
+    const targetSection = document.getElementById(sectionId);
+
+    if (targetSection && targetSection.classList.contains("section")) {
+      event.preventDefault();
+      showSection(sectionId);
+    }
+  });
+});
 
 // Interactive skills
 skillCards.forEach((card) => {
@@ -82,7 +132,7 @@ skillCards.forEach((card) => {
   });
 });
 
-// Mobile navigation
+// Mobile navigation menu
 if (menuToggle && navLinks) {
   menuToggle.addEventListener("click", () => {
     const isOpen = navLinks.classList.toggle("open");
@@ -91,19 +141,39 @@ if (menuToggle && navLinks) {
     menuToggle.textContent = isOpen ? "✕" : "☰";
   });
 
-  navLinks.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      navLinks.classList.remove("open");
-      menuToggle.setAttribute("aria-expanded", "false");
-      menuToggle.textContent = "☰";
-    });
-  });
-
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       navLinks.classList.remove("open");
       menuToggle.setAttribute("aria-expanded", "false");
       menuToggle.textContent = "☰";
     }
+  });
+}
+
+// Seven-colour cursor glow
+const cursorGlow = document.createElement("div");
+cursorGlow.className = "cursor-glow";
+cursorGlow.setAttribute("aria-hidden", "true");
+document.body.appendChild(cursorGlow);
+
+if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+  document.addEventListener("pointermove", (event) => {
+    cursorGlow.style.left = `${event.clientX}px`;
+    cursorGlow.style.top = `${event.clientY}px`;
+    document.body.classList.add("cursor-visible");
+  });
+
+  document.addEventListener("pointerleave", () => {
+    document.body.classList.remove("cursor-visible", "cursor-hover");
+  });
+
+  document.querySelectorAll("a, button, select").forEach((element) => {
+    element.addEventListener("pointerenter", () => {
+      document.body.classList.add("cursor-hover");
+    });
+
+    element.addEventListener("pointerleave", () => {
+      document.body.classList.remove("cursor-hover");
+    });
   });
 }
